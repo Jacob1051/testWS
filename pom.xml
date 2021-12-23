@@ -28,38 +28,11 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
-	<profiles>
-	    <profile>
-	        <id>profile1</id>
-	        <properties>
-	          <spring.boot.mainclass>com.example.demo.spring1.DemoApplication</spring.boot.mainclass>
-	        </properties>
-	    </profile>
-	    <profile>
-	        <id>profile2</id>
-	        <properties>
-	          <spring.boot.mainclass>com.example.demo.spring2.DemoApplication2</spring.boot.mainclass>
-	        </properties>
-	    </profile>
-	</profiles>
-
-	
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-			      <execution>
-			        <goals>
-			          <goal>repackage</goal>
-			        </goals>
-			        <configuration>
-			          <mainClass>${spring.boot.mainclass}</mainClass>
-			        </configuration>
-			      </execution>
-			    </executions>
 			</plugin>
 		</plugins>
 	</build>
