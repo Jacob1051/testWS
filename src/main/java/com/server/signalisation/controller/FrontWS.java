@@ -26,6 +26,7 @@ import signalement.*;
 @RestController
 @CrossOrigin(origins = "*")
 public class FrontWS {
+    /*********/
 /*-------------------Region----------------------------------------------*/    
     //********************************login*******************************//
     @RequestMapping(value = "/front/login", method = RequestMethod.POST)
