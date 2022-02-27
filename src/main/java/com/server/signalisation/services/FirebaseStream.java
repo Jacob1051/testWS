@@ -44,7 +44,7 @@ public class FirebaseStream {
         storage.create(
         		blobInfo
         		, Files.readAllBytes(file.toPath()));
-        return String.format(DOWNLOAD_URL, fileName, StandardCharsets.UTF_8);
+        return String.format(DOWNLOAD_URL, fileName);
     }
 
     private File convertToFile(MultipartFile multipartFile, String fileName) throws IOException {
