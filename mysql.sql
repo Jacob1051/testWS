@@ -187,3 +187,15 @@ CREATE TABLE TokenChefRegion(
     FOREIGN KEY(idChefRegion) REFERENCES ChefRegion(id)
 )ENGINE=InnoDB;
 --------------------------------------------------
+
+INSERT INTO Statut VALUES(null, 'En Cours');
+INSERT INTO Statut VALUES(null, 'Termine');
+
+CREATE TABLE StatutReport(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idSignalement INT,
+    idStatut INT,
+    dates DATE,
+    FOREIGN KEY(idSignalement) REFERENCES Signalement(id),
+    FOREIGN KEY(idStatut) REFERENCES Statut(id),
+)ENGINE=InnoDB;

@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
  
 
 public class FileManagement {
@@ -54,8 +56,7 @@ public class FileManagement {
      * over the input image.
      * @throws IOException
      */
-    public static void resize(String inputImagePath,
-            String outputImagePath, double percent) throws IOException {
+    public static void resize(String inputImagePath, String outputImagePath, double percent) throws IOException {
         File inputFile = new File(inputImagePath);
         BufferedImage inputImage = ImageIO.read(inputFile);
         int scaledWidth = (int) (inputImage.getWidth() * percent);
@@ -63,34 +64,25 @@ public class FileManagement {
         resize(inputImagePath, outputImagePath, scaledWidth, scaledHeight);
     }
     
+    public static byte[] toByteArray(BufferedImage bi, String format)
+            throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bi, format, baos);
+        byte[] bytes = baos.toByteArray();
+        return bytes;
+    }
     
-    public static void toJPG() throws IOException { // png to jpg
-
-        Path source = Paths.get("D:\\Sary\\SaryPNG.png");
-        Path target = Paths.get("D:\\Sary\\SaryJPG.jpg");
-
-        BufferedImage originalImage = ImageIO.read(source.toFile());
-
-        // jpg needs BufferedImage.TYPE_INT_RGB
-        // png needs BufferedImage.TYPE_INT_ARGB
-
+    public static byte[] toJPG(File f) throws IOException { // png to jpg
+        //Path source = Paths.get("D:\\Sary\\SaryPNG.png");
+       // Path target = Paths.get("D:\\Sary\\SaryJPG.jpg");
+        BufferedImage originalImage = ImageIO.read(f);
         // create a blank, RGB, same width and height
-        BufferedImage newBufferedImage = new BufferedImage(
-                originalImage.getWidth(),
-                originalImage.getHeight(),
-                BufferedImage.TYPE_INT_RGB);
-
+        BufferedImage newBufferedImage = new BufferedImage( originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_RGB);
         // draw a white background and puts the originalImage on it.
-        newBufferedImage.createGraphics()
-                .drawImage(originalImage,
-                        0,
-                        0,
-                        Color.WHITE,
-                        null);
-
+        newBufferedImage.createGraphics().drawImage(originalImage,0,0,Color.WHITE,null);
         // save an image
-        ImageIO.write(newBufferedImage, "jpg", target.toFile());
-
+        //ImageIO.write(newBufferedImage, "jpg", target.toFile());
+        return toByteArray(newBufferedImage, "jpg");
     }
  
     /**

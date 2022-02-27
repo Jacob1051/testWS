@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -48,7 +47,7 @@ public class FilesController {
       message = "Uploaded the files successfully: " + fileNames;
       return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
     } catch (Exception e) {
-      message = "Fail to upload your files!";
+      message = "Fail to upload files!";
       return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
     }
   }
@@ -71,13 +70,5 @@ public class FilesController {
     Resource file = storageService.load(filename);
     return ResponseEntity.ok()
         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-  }
-  
-  @GetMapping("/images/{filename:.+}")
-  public ResponseEntity<Resource> getImages(@PathVariable String filename) {
-    Resource file = storageService.load(filename);
-    return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(file);
-    //return ResponseEntity.ok()
-        //.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
   }
 }
